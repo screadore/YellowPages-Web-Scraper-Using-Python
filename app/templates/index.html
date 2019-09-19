@@ -1,0 +1,93 @@
+<!-- Bootstrap js requirements -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+<script src="{{url_for('static', filename='custom.js')}}"></script>
+
+{% extends "bootstrap/base.html" %}
+
+
+{% block body %}
+
+<div class="content-wrapper">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="page-head-line">YP Scraper</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="notice-board">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Search Parameters
+                        </div>
+
+                        <div class="panel-body">
+                            <form class="form-horizontal" action="" method="POST">
+                                <div class="panel-footer">
+                                    <input type="submit" name="submit" class="form-control" value="Scrape & Download">
+                                </div>
+                                <table class="table table-bordered table-hover" id="tableAddRow">
+                                    <thead>
+                                        <tr>
+                                            <th>Term</th>
+                                            <th>Locations</th>
+                                            <th style="width:10px"><span class="glyphicon glyphicon-plus addBtn"></span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                          <td><input type="text" name="search_terms" class="form-control"/></td>
+                                          <td><input type="text" name="search_locations" class="form-control" /></td>
+                                          <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="alert alert-warning">
+                    <b>Notes:</b>
+                    <ul>
+                        <li>You can type 'ALL' in locations to search a term for every State.</li>
+                        <li>Use semicolons to separate multiple terms and/or locations (e.g. 'Pharmacy; Gift Store' -or- 'CA; IL').</li>
+                        <li>Use commas for City, State pairs (e.g. 'Chicago, IL; New York City, NY').</li>
+                        <li>Click the '+' to add new searches.</li>
+                        <li><b>Keep this window open in the background to ensure your results file downloads.</b></li>
+                </div>
+                <hr />
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
